@@ -111,7 +111,22 @@ export default function App() {
 					</fieldset>
 				</section>
 
-				<section className="card">
+				<section className="card" hidden={!state.staticPage}>
+					<div className="row space-between">
+						<label className="field grow">
+							<span>Banner Text</span>
+							<input
+								name="bannerText"
+								className="entity-name"
+								type="text"
+								value={state.bannerText}
+								onChange={(e) => actions.setProp("bannerText", e.target.value)}
+							/>
+						</label>
+					</div>
+				</section>
+
+				<section className="card" hidden={state.staticPage}>
 					<div className="row space-between">
 						<h2>Entities</h2>
 						<button className="btn btn-primary"

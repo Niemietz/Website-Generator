@@ -26,6 +26,8 @@ const initialState = {
 	port: 5000,
 	auth: false,
 	staticPage: true,
+	contact: true,
+	bannerText: "",
 	/*project: {
 		appName: 'MyApp',
 		includeLogin: false,
