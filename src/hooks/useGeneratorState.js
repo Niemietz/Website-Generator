@@ -55,6 +55,10 @@ const initialState = {
 		secondaryColor: "#FFF3E6",
 		accentColor: "#6B3E2A",
 		mutedColor: "#BFA08A",
+		primaryColorDarkMode: "#FFA07A",
+		secondaryColorDarkMode: "#FFF3E6",
+		accentColorDarkMode: "#6B3E2A",
+		mutedColorDarkMode: "#BFA08A",
 		hero: {
 			image: "",
 			title: "Welcome to MyApp",

@@ -129,7 +129,7 @@ export default function App() {
 				</section>
 
 				<section className="card" hidden={!state.staticPage}>
-					<h2>Color Palette</h2>
+					<h2>Color Palette (for Light Mode 💡)</h2>
 					<div className="row">
 						<label className="field grow">
 							<span>Primary Color</span>
@@ -175,6 +175,62 @@ export default function App() {
 								type="color"
 								value={state.content.mutedColor}
 								onChange={(e) => actions.setContent("mutedColor", e.target.value)}
+							/>
+						</label>
+					</div>
+				</section>
+
+				<section className="card" hidden={!state.staticPage}>
+					<h2>Color Palette (for Dark Mode 🌒) - ⚠️ Work in Progress 🚧</h2>
+					<div className="row">
+						<label className="field grow">
+							<span>Primary Color</span>
+							<input
+								name="primaryColor"
+								className="entity-name"
+								style={{padding: "unset"}}
+								type="color"
+								disabled
+								value={state.content.primaryColorDarkMode}
+								onChange={(e) => actions.setContent("primaryColorDarkMode", e.target.value)}
+							/>
+						</label>
+						<label className="field grow">
+							<span>Secondary Color</span>
+							<input
+								name="secondaryColor"
+								className="entity-name"
+								style={{padding: "unset"}}
+								type="color"
+								disabled
+								value={state.content.secondaryColorDarkMode}
+								onChange={(e) => actions.setContent("secondaryColorDarkMode", e.target.value)}
+							/>
+						</label>
+						<label className="field grow">
+							<span>Accent Color</span>
+							<input
+								name="accentColor"
+								className="entity-name"
+								style={{padding: "unset"}}
+								type="color"
+								disabled
+								value={state.content.accentColorDarkMode}
+								onChange={(e) => actions.setContent("accentColorDarkMode", e.target.value)}
+							/>
+						</label>
+					</div>
+					<div className="row">
+						<label className="field grow">
+							<span>Muted Color</span>
+							<input
+								name="mutedColor"
+								className="entity-name"
+								style={{padding: "unset"}}
+								type="color"
+								disabled
+								value={state.content.mutedColorDarkMode}
+								onChange={(e) => actions.setContent("mutedColorDarkMode", e.target.value)}
 							/>
 						</label>
 					</div>
