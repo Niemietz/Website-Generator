@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import TopBar from './components/TopBar';
 import useGeneratorState from './hooks/useGeneratorState';
 import EntityCard from "./components/EntityCard.jsx";
+import NavigationCard from "./components/NavigationCard.jsx";
 import { API_BASE_URL } from "./config.js";
 import { collectSpec } from "./utils/spec.js";
 
@@ -95,7 +96,7 @@ export default function App() {
 						<span>Include JWT authentication scaffold (User model, register/login, protected routes)</span>
 					</label>
 					<br/>
-					<fieldset style={{border: 'none', padding: '0px'}} className="checkbox-field">
+					<fieldset style={{border: 'none', padding: '0px'}} disabled={true} className="checkbox-field">
 						<div style={{margin: '-3px'}}>
 							<input type="radio" id="static" name="staticPage" value="true"
 							   checked={state.staticPage}
@@ -106,23 +107,135 @@ export default function App() {
 							<input type="radio" style={{marginTop: '4px'}} id="nonStatic" name="staticPage" value="false"
 							   checked={!state.staticPage}
 							   onChange={(e) => actions.setProp("staticPage", !e.target.checked)}/>
-							<label htmlFor="nonStatic">Form / List / Details</label>
+							<label htmlFor="nonStatic">Form / List / Details (⚠️ Work in Progress 🚧)</label>
 						</div>
 					</fieldset>
 				</section>
 
 				<section className="card" hidden={!state.staticPage}>
 					<div className="row space-between">
+						<h2>Navigation</h2>
+						<button className="btn btn-primary"
+							id="addNavigationBtn"
+							onClick={() => actions.addNavigation()}
+						>+ Add navigation
+						</button>
+					</div>
+					<div id="navigation">
+						{state.navigation.map((navigation, index) => (
+							<NavigationCard key={navigation.id} index={index} navigation={navigation} actions={actions}/>
+						))}
+					</div>
+				</section>
+
+				<section className="card" hidden={!state.staticPage}>
+					<h2>Color Palette</h2>
+					<div className="row">
 						<label className="field grow">
+							<span>Primary Color</span>
+							<input
+								name="primaryColor"
+								className="entity-name"
+								style={{padding: "unset"}}
+								type="color"
+								value={state.content.primaryColor}
+								onChange={(e) => actions.setContent("primaryColor", e.target.value)}
+							/>
+						</label>
+						<label className="field grow">
+							<span>Secondary Color</span>
+							<input
+								name="secondaryColor"
+								className="entity-name"
+								style={{padding: "unset"}}
+								type="color"
+								value={state.content.secondaryColor}
+								onChange={(e) => actions.setContent("secondaryColor", e.target.value)}
+							/>
+						</label>
+						<label className="field grow">
+							<span>Accent Color</span>
+							<input
+								name="accentColor"
+								className="entity-name"
+								style={{padding: "unset"}}
+								type="color"
+								value={state.content.accentColor}
+								onChange={(e) => actions.setContent("accentColor", e.target.value)}
+							/>
+						</label>
+					</div>
+					<div className="row">
+						<label className="field grow">
+							<span>Muted Color</span>
+							<input
+								name="mutedColor"
+								className="entity-name"
+								style={{padding: "unset"}}
+								type="color"
+								value={state.content.mutedColor}
+								onChange={(e) => actions.setContent("mutedColor", e.target.value)}
+							/>
+						</label>
+					</div>
+				</section>
+
+				<section className="card" hidden={!state.staticPage}>
+					<h2>Banner</h2>
+					<div className="row space-between">
+						<label className="field">
 							<span>Banner Text</span>
 							<input
 								name="bannerText"
 								className="entity-name"
 								type="text"
-								value={state.bannerText}
-								onChange={(e) => actions.setProp("bannerText", e.target.value)}
+								value={state.content.hero.title}
+								onChange={(e) => actions.setHero("title", e.target.value)}
 							/>
 						</label>
+						<label className="field">
+							<span>Banner Subtitle</span>
+							<input
+								name="bannerSubtitle"
+								className="entity-name"
+								type="text"
+								value={state.content.hero.subtitle}
+								onChange={(e) => actions.setHero("subtitle", e.target.value)}
+							/>
+						</label>
+						<label className="field">
+							<span>Banner Image</span>
+							<input
+								name="bannerImage"
+								className="entity-name"
+								type="text"
+								value={state.content.hero.image}
+								onChange={(e) => actions.setHero("image", e.target.value)}
+							/>
+						</label>
+					</div>
+				</section>
+
+				<section className="card" hidden={!state.staticPage}>
+					<h2>Main Content</h2>
+					<div className="row">
+						<label className="field">
+							<span>Text</span>
+							<input
+								name="mainText"
+								className="entity-name"
+								type="text"
+								value={state.content.main.text}
+								onChange={(e) => actions.setMain("text", e.target.value)}
+							/>
+						</label>
+					</div>
+				</section>
+
+				<section className="card" hidden={!state.staticPage}>
+					<h2>Footer</h2>
+					<div className="row" style={{textAlign: "center", display: "unset"}}>
+						<h2>⚠️ Work in Progress 🚧</h2>
 					</div>
 				</section>
 
