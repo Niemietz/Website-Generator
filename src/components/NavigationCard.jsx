@@ -74,7 +74,7 @@ export default function NavigationCard({navigation, index, actions}) {
 					<span>Section on an existing page, not an independent page (Anchor)</span>
 				</label>
 				<button className="btn btn-danger remove-entity"
-					onClick={() => actions.removeNavigation(navigation.id)}>Remove navigation</button>
+					onClick={() => actions.removeNavigation(navigation.id)}>Remove</button>
 			</div>
 		</div>
 	);

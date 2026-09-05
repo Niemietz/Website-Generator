@@ -6,6 +6,7 @@ String.prototype.capitalize = function() {
 
 let idCounter = 0;
 let idNavigationCounter = 0;
+let idBottomCardCounter = 0;
 
 function nextId(prefix) {
 	idCounter += 1;
@@ -15,6 +16,11 @@ function nextId(prefix) {
 function nextIdForNavigation(prefix) {
 	idNavigationCounter += 1;
 	return `${prefix}-${idNavigationCounter}`;
+}
+
+function nextIdForBottomCard(prefix) {
+	idBottomCardCounter += 1;
+	return `${prefix}-${idBottomCardCounter}`;
 }
 
 function makeField(name = '', type = 'String', nullable = false, unique = false) {
@@ -30,12 +36,31 @@ function makeEntity(name) {
 	};
 }
 
+function makeBottomCard(title, description) {
+	return {
+		id: nextIdForBottomCard('bottomCard'),
+		title,
+		description,
+	};
+}
+
+String.prototype.convertToValidFilename = function () {
+	if (!this.includes(' ')) {
+		return this
+	}
+	let sb = "";
+	this.split(" ").map((word) => {
+		sb += word.capitalize()
+	})
+	return sb
+}
+
 function makeNavigation(name = '', isAnchor = false, isCta = false, ctaText = null) {
 	return {
 		id: nextIdForNavigation('navigation'),
 		name: name,
-		componentName: name.capitalize(),
-		href: (isAnchor) ? `#${name.capitalize()}` : `/${name.capitalize()}`,
+		componentName: name.convertToValidFilename(),
+		href: (isAnchor) ? `#${name.convertToValidFilename()}` : `/${name.convertToValidFilename()}`,
 		isAnchor: isAnchor,
 		isCta: isCta,
 		ctaText: ctaText
@@ -55,10 +80,10 @@ const initialState = {
 		secondaryColor: "#FFF3E6",
 		accentColor: "#6B3E2A",
 		mutedColor: "#BFA08A",
-		primaryColorDarkMode: "#FFA07A",
-		secondaryColorDarkMode: "#FFF3E6",
-		accentColorDarkMode: "#6B3E2A",
-		mutedColorDarkMode: "#BFA08A",
+		primaryColorDarkMode: "#803f25",
+		secondaryColorDarkMode: "#9d682e",
+		accentColorDarkMode: "#FFF3E6",
+		mutedColorDarkMode: "#56483e",
 		hero: {
 			image: "",
 			title: "Welcome to MyApp",
@@ -68,7 +93,10 @@ const initialState = {
 			text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
 		},
 		footer: {
-			bottomCards: [],
+			bottomCards: [
+				makeBottomCard("Lorem ipsum", "Lorem ipsum dolor sit amet, consectetur adipiscing elit."),
+				makeBottomCard("Lorem ipsum", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
+			],
 			title: "Lorem ipsum dolor",
 			description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pharetra consequat leo et euismod.",
 			ctaText: "CALL TO ACTION",
@@ -133,10 +161,19 @@ function useNavigationCounter() {
 	};
 }
 
+function useBottomCardCounter() {
+	const ref = useRef(1);
+	return () => {
+		ref.current += 1;
+		return ref.current;
+	};
+}
+
 export default function useGeneratorState() {
 	const [state, setState] = useState(initialState);
 	const nextEntityNumber = useEntityCounter();
 	const nextNavigationNumber = useNavigationCounter();
+	const nextBottomCardNumber = useBottomCardCounter();
 
 	const setProp = (key, value) =>
 		setState((s) => ({...s, [key]: value}));
@@ -149,6 +186,9 @@ export default function useGeneratorState() {
 
 	const setMain = (key, value) =>
 		setState((s) => ({...s, content: {...s.content, main: {...s.content.main, [key]: value}}}));
+
+	const setFooter = (key, value) =>
+		setState((s) => ({...s, content: {...s.content, footer: {...s.content.footer, [key]: value}}}));
 
 	const setSyncField = (key, value) => setState((s) => ({...s, sync: {...s.sync, [key]: value}}));
 
@@ -176,18 +216,10 @@ export default function useGeneratorState() {
 	const addEntity = (name = '') =>
 		setState((s) => ({...s, entities: [...s.entities, makeEntity(name || `Entity${nextEntityNumber()}`)]}));
 
-	const addNavigation = (name = '') =>
-		setState((s) => ({...s, navigation: [...s.navigation, makeNavigation(name || `Nav${nextNavigationNumber()}`)]}));
-
 	const removeEntity = (id) => setState((s) => ({...s, entities: s.entities.filter((e) => e.id !== id)}));
-
-	const removeNavigation = (id) => setState((s) => ({...s, navigation: s.navigation.filter((e) => e.id !== id)}));
 
 	const updateEntity = (id, patch) =>
 		setState((s) => ({...s, entities: s.entities.map((e) => (e.id === id ? {...e, ...patch} : e))}));
-
-	const updateNavigation = (id, patch) =>
-		setState((s) => ({...s, navigation: s.navigation.map((e) => (e.id === id ? {...e, ...patch} : e))}));
 
 	const updateEntityScreens = (id, key, value) =>
 		setState((s) => ({
@@ -219,6 +251,25 @@ export default function useGeneratorState() {
 			),
 		}));
 
+	// --- Navigation -----------------------------------------------------------
+	const addNavigation = (name = '', isAnchor = false, isCta = false, ctaText = null) =>
+		setState((s) => ({...s, navigation: [...s.navigation, makeNavigation(name || `Nav${nextNavigationNumber()}`, isAnchor || false, isCta || false, ctaText)]}));
+
+	const removeNavigation = (id) => setState((s) => ({...s, navigation: s.navigation.filter((e) => e.id !== id)}));
+
+	const updateNavigation = (id, patch) =>
+		setState((s) => ({...s, navigation: s.navigation.map((e) => (e.id === id ? {...e, ...patch} : e))}));
+
+	// --- Footer Bottom Card -----------------------------------------------------------
+	const addBottomCard = (title = '', description = '') =>
+		setState((s) => ({...s, content: {...s.content, footer: {...s.content.footer, bottomCards: [...s.content.footer.bottomCards, makeBottomCard(title || `BottomCard${nextBottomCardNumber()}`, description || ``)]}}}));
+
+	const removeBottomCard = (id) =>
+		setState((s) => ({...s, content: {...s.content, footer: {...s.content.footer, bottomCards: s.content.footer.bottomCards.filter((e) => e.id !== id) } } }));
+
+	const updateBottomCard = (id, patch) =>
+		setState((s) => ({...s, content: {...s.content, footer: {...s.content.footer, bottomCards: s.content.footer.bottomCards.map((e) => (e.id === id ? {...e, ...patch} : e))} } }));
+
 	// --- Extra screens --------------------------------------------------------
 	const addExtraScreen = (name) =>
 		setState((s) =>
@@ -236,6 +287,7 @@ export default function useGeneratorState() {
 			setContent,
 			setHero,
 			setMain,
+			setFooter,
 			setSyncField,
 			setImageCacheField,
 			setImageBackend,
@@ -244,10 +296,13 @@ export default function useGeneratorState() {
 			setAzureMapsApiKey,
 			setIncludeFirebase,
 			addEntity,
+			addBottomCard,
 			addNavigation,
 			removeEntity,
+			removeBottomCard,
 			removeNavigation,
 			updateEntity,
+			updateBottomCard,
 			updateNavigation,
 			updateEntityScreens,
 			addField,

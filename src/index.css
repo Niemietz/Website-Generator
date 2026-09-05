@@ -3,6 +3,8 @@
     --danger: #dc2626;
     --border: #e2e8f0;
     --text: #1e293b;
+    --template-border: #1E293B00;
+    --template-border-opac: #1E293B;
     --muted: #64748b;
     font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
@@ -27,6 +29,113 @@ body {
     max-width: 860px;
     margin: 0 auto;
     padding: 1.5rem 1rem 4rem;
+}
+
+.scaffold {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px 24px 80px;
+}
+
+.layout {
+    padding: 1.5rem 0;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 22px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.templateChooseLayout {
+    padding: 1.5rem 0;
+    display: flex;
+    gap: 15px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .templateChooseLayout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.blurred {
+    filter: blur(5px);
+}
+
+.template-preview {
+    cursor: pointer;
+    width: 200px;
+    height: 250px;
+    background-size: contain;
+}
+
+.template-preview-blurred {
+    cursor: pointer;
+    width: 200px;
+    height: 250px;
+    background-size: contain;
+    align-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.template-preview-blurred::before {
+    content: "";
+    position: absolute;
+    inset: -20px;
+    background-size: contain;
+    background-image: url("https://raw.githubusercontent.com/Niemietz/Bakery-Sample-React/refs/heads/master/github/demo-1.png");
+    filter: blur(20px);
+    z-index: -1;
+}
+
+.template-box {
+    padding: 10px;
+    opacity: 0.5;
+    transition: opacity 0.3s ease-in-out, outline 0.3s ease-in-out;
+    outline: 1px solid var(--template-border);
+    outline-style: dashed;
+    outline-width: 2px;
+    border-radius: 10px;
+}
+
+.template-box:hover {
+    outline: 1px solid var(--template-border-opac);
+    opacity: 1;
+    outline-style: dashed;
+    outline-width: 2px;
+}
+
+.loading-icon {
+    font-size: 48px;
+    color: #4285f4;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.side-column {
+    position: sticky;
+    top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.side-column .card {
+    margin-bottom: 0;
 }
 
 .card {
