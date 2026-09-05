@@ -14,7 +14,7 @@ const delay = (ms) =>
 	new Promise((resolve) => setTimeout(resolve, ms));
 
 export function Template1Section() {
-	const scaffold = useRef();
+	const mainRef = useRef();
 	const {state, actions} = useGeneratorState();
 	const [loaded, setLoaded] = useState(false);
 	const [busy, setBusy] = useState(false);
@@ -98,7 +98,7 @@ export function Template1Section() {
 			a.href = url;
 			a.download = `${spec.projectName}.zip`;
 
-			scaffold.current.appendChild(a);
+			mainRef.current.appendChild(a);
 
 			a.click();
 			a.remove();
@@ -134,7 +134,7 @@ export function Template1Section() {
 
 	return (
 		(loaded) ?
-			<main className="layout">
+			<main className="layout" ref={mainRef}>
 				<section>
 					<ProjectSection state={state} actions={actions}/>
 

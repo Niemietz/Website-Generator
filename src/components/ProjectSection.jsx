@@ -19,11 +19,12 @@ export function ProjectSection({state, actions}) {
 				</label>
 			</div>
 			<label className="field">
-				<span>Description</span>
+				<span>Description (Work in Progress 🚧)</span>
 				<input id="description" type="text" placeholder="Optional short description"
-					   value={state.description}
+					   value={state.description} disabled
 					   onChange={(e) => actions.setProp("description", e.target.value)}/>
 			</label>
+			{(!state.staticPage) ? <>
 			<label className="checkbox-field">
 				<input id="auth"
 					   type="checkbox"
@@ -32,6 +33,7 @@ export function ProjectSection({state, actions}) {
 				<span>Include JWT authentication scaffold (User model, register/login, protected routes)</span>
 			</label>
 			<br/>
+			</> : null}
 			<fieldset style={{border: 'none', padding: '0px'}} disabled={true} className="checkbox-field">
 				<div style={{margin: '-3px'}}>
 					<input type="radio" id="static" name="staticPage" value="true"
@@ -43,7 +45,7 @@ export function ProjectSection({state, actions}) {
 					<input type="radio" style={{marginTop: '4px'}} id="nonStatic" name="staticPage" value="false"
 						   checked={!state.staticPage}
 						   onChange={(e) => actions.setProp("staticPage", !e.target.checked)}/>
-					<label htmlFor="nonStatic">Form / List / Details (⚠️ Work in Progress 🚧)</label>
+					<label htmlFor="nonStatic">Form / List / Details (Work in Progress 🚧)</label>
 				</div>
 			</fieldset>
 		</div>

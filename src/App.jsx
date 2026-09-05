@@ -5,13 +5,12 @@ import {ChooseTemplateSection} from "./components/ChooseTemplateSection.jsx";
 import {storage} from "./utils/localStorage.js";
 
 export default function App() {
-	const scaffold = useRef();
 	const [templateChose, setTemplateChose] =
 		useState(storage.getLocalStorage("templateChose") || false);
 	const [template, setTemplate] = useState(1);
 
 	return (
-		<div className="scaffold" ref={scaffold}>
+		<div className="scaffold">
 			<TopBar templateChose={templateChose} setTemplateChose={setTemplateChose} />
 			{(!templateChose) ?
 				<ChooseTemplateSection setTemplate={setTemplate} setTemplateChose={setTemplateChose}/> :
