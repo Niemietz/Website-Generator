@@ -75,6 +75,35 @@ body {
     background-size: contain;
 }
 
+.template-preview-form-list-details {
+    cursor: pointer;
+    width: 200px;
+    height: 250px;
+    background: round;
+}
+
+.template-preview-form-list-details-blurred {
+    cursor: pointer;
+    width: 200px;
+    height: 250px;
+    background-size: contain;
+    align-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.template-preview-form-list-details-blurred::before {
+    content: "";
+    position: absolute;
+    inset: -20px;
+    background-size: contain;
+    background-image: url("https://raw.githubusercontent.com/Niemietz/Bakery-Sample-Admin-Spring-Boot-Java-and-Vue/refs/heads/master/github/demo-1.png");
+    filter: blur(20px);
+    z-index: -1;
+}
+
 .template-preview-blurred {
     cursor: pointer;
     width: 200px;

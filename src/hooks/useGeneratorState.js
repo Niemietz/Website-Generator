@@ -67,12 +67,12 @@ function makeNavigation(name = '', isAnchor = false, isCta = false, ctaText = nu
 	};
 }
 
-const initialState = {
+const initialState = (initialStaticPage) => ({
 	projectName: "MyApp",
 	description: "",
 	port: 5000,
 	auth: false,
-	staticPage: true,
+	staticPage: initialStaticPage,
 	contact: true,
 	content: {
 		logo: "",
@@ -142,7 +142,7 @@ const initialState = {
 	/*extraScreens: [],
 	googleMapsApiKey: 'abcdefg',
 	azureMapsApiKey: 'abcdefg',*/
-};
+});
 
 /** Keeps the same "entity counter never goes back down" default-naming quirk as the original. */
 function useEntityCounter() {
@@ -169,8 +169,8 @@ function useBottomCardCounter() {
 	};
 }
 
-export default function useGeneratorState() {
-	const [state, setState] = useState(initialState);
+export default function useGeneratorState(initialStaticPage) {
+	const [state, setState] = useState(initialState(initialStaticPage));
 	const nextEntityNumber = useEntityCounter();
 	const nextNavigationNumber = useNavigationCounter();
 	const nextBottomCardNumber = useBottomCardCounter();

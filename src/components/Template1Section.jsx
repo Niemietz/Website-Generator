@@ -1,5 +1,4 @@
 import {useEffect, useRef, useState} from "react";
-import useGeneratorState from './../hooks/useGeneratorState';
 import { API_BASE_URL } from "./../config.js";
 import { collectSpec } from "./../utils/spec.js";
 import {ProjectSection} from "./ProjectSection.jsx";
@@ -13,9 +12,8 @@ import {EntitiesSection} from "./EntitiesSection.jsx";
 const delay = (ms) =>
 	new Promise((resolve) => setTimeout(resolve, ms));
 
-export function Template1Section() {
+export function Template1Section({state, actions}) {
 	const mainRef = useRef();
-	const {state, actions} = useGeneratorState();
 	const [loaded, setLoaded] = useState(false);
 	const [busy, setBusy] = useState(false);
 	const [view, setView] = useState('generation');
@@ -68,8 +66,12 @@ export function Template1Section() {
 	}
 
 	const handleGenerate = async () => {
-		statusMsg.kind = '';
-		statusMsg.text = 'Generating...';
+		if (state.staticPage === false) {
+			setStatusMsg({...statusMsg, text: 'Not available yet! This is a WIP 🚧', kind: "error" });
+			return
+		}
+
+		setStatusMsg({...statusMsg, text: 'Generating...', kind: '' });
 
 		const spec = collectSpec(state);
 		console.warn("spec", spec);
@@ -87,8 +89,7 @@ export function Template1Section() {
 				console.warn(res);
 
 				const data = await res.json();
-				statusMsg.text = (data.errors || ['Unknown error']).join('\n');
-				statusMsg.kind = 'error';
+				setStatusMsg({...statusMsg, text: (data.errors || ['Unknown error']).join('\n'), kind: 'error' });
 				return;
 			}
 
@@ -103,10 +104,9 @@ export function Template1Section() {
 			a.click();
 			a.remove();
 			URL.revokeObjectURL(url);
-			statusMsg.text = 'Done! Your project zip has downloaded.';
+			setStatusMsg({...statusMsg, text: "Done! Your project zip has downloaded.", kind: '' });
 		} catch (err) {
-			statusMsg.text = err.message;
-			statusMsg.kind = 'error';
+			setStatusMsg({...statusMsg, text: err.message, kind: 'error' });
 		} finally {
 			setBusy(false)
 		}
@@ -117,10 +117,6 @@ export function Template1Section() {
 
 		async function run() {
 			await delay(300);
-
-			if (!cancelled) {
-				console.log("Finished waiting");
-			}
 		}
 
 		run().then(() => {
@@ -154,13 +150,13 @@ export function Template1Section() {
 				</section>
 
 				<aside className="side-column">
-					<section>
+					<section hidden={!state.staticPage}>
 						<div className="card">
 							<h2> Preview</h2>
 							<h4>⚠️ Work in Progress 🚧</h4>
 						</div>
 					</section>
-					<section>
+					<section hidden={!state.staticPage}>
 						<div className="card">
 							<button className="btn btn-primary btn-large" onClick={fillContent} disabled={busy}>
 								📝 Fill with plausible content
@@ -173,10 +169,7 @@ export function Template1Section() {
 							        disabled={busy}>
 								📦 Generate &amp; Download Project
 							</button>
-							<div id="errors"
-							     className="errors">{(statusMsg.kind === 'error') ? statusMsg.text : ""}</div>
-							<div id="status"
-							     className="status">{(statusMsg.kind !== 'error') ? statusMsg.text : ""}</div>
+							<div className={(statusMsg.kind === "error") ? "errors" : "status"}>{statusMsg.text}</div>
 						</div>
 					</section>
 				</aside>

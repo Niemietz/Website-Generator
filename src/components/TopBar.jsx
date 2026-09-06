@@ -1,9 +1,9 @@
-export default function TopBar({templateChose, setTemplateChose}) {
+export default function TopBar({templateChosen, setTemplateChosen}) {
 	return (
 		<header className="topbar">
 			<div className="row">
-				{(templateChose) ? <div style={{alignSelf: 'center'}}>
-					<span className="material-symbols-outlined" style={{cursor: "pointer"}} onClick={(e) => setTemplateChose(false)}>arrow_back</span>
+				{(templateChosen === true) ? <div style={{alignSelf: 'center'}}>
+					<span className="material-symbols-outlined" style={{cursor: "pointer"}} onClick={(e) => setTemplateChosen(false)}>arrow_back</span>
 				</div> : null}
 				<div>
 					<h1>Website & Web App Generator</h1>

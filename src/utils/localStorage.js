@@ -1,6 +1,8 @@
 const LOCAL_STORAGE_KEY = "state"
 const localStorageInitialValue = {
-	"templateChose": false,
+	"templateChosen": false,
+	"staticPage": true,
+	"template": 1,
 }
 
 function setLocalStorage(key, value) {
