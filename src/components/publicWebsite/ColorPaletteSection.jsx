@@ -1,4 +1,4 @@
-import { toDarkMode } from "./../utils/colors";
+import { toDarkMode } from "../../utils/colors.js";
 import { useEffect, useState } from "react";
 
 export function ColorPaletteSection({state, actions, darkMode = false}) {
@@ -25,7 +25,7 @@ export function ColorPaletteSection({state, actions, darkMode = false}) {
 	}, []);
 
 	return (
-		<div className="card" hidden={!state.staticPage}>
+		<div className="card">
 			<h2>Color Palette{(darkMode) ? " (for Dark Mode 🌒)" : " (for Light Mode 💡)"}</h2>
 			<div className="row">
 				<label className="field grow">

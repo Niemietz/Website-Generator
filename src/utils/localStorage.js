@@ -1,7 +1,7 @@
 const LOCAL_STORAGE_KEY = "state"
 const localStorageInitialValue = {
 	"templateChosen": false,
-	"staticPage": true,
+	"publicWebsite": true,
 	"template": 1,
 }
 

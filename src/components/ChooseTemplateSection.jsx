@@ -1,8 +1,8 @@
 import {storage} from "../utils/localStorage.js";
 
-export function ChooseTemplateSection({setTemplate, setTemplateChosen, staticPage}) {
+export function ChooseTemplateSection({setTemplate, setTemplateChosen, publicWebsite}) {
 	const template1Url =
-		(staticPage) ?
+		(publicWebsite) ?
 			"https://raw.githubusercontent.com/Niemietz/Bakery-Sample-React/refs/heads/master/github/demo-1.png" :
 			"https://raw.githubusercontent.com/Niemietz/Bakery-Sample-Admin-Spring-Boot-Java-and-Vue/refs/heads/master/github/demo-1.png"
 
@@ -14,7 +14,7 @@ export function ChooseTemplateSection({setTemplate, setTemplateChosen, staticPag
 					<div className="row">
 						<div className="template-box"
 							onClick={e => {
-								if (!staticPage) {
+								if (!publicWebsite) {
 									return;
 								}
 								storage.setLocalStorage("template", 1)
@@ -25,8 +25,8 @@ export function ChooseTemplateSection({setTemplate, setTemplateChosen, staticPag
 							<div style={{
 									backgroundImage: `url("${template1Url}")`
 								}}
-							 	className={(staticPage) ? "template-preview" : "template-preview-form-list-details-blurred"}>
-								{(staticPage) ? <></> : <h1>COMING SOON</h1>}
+							 	className={(publicWebsite) ? "template-preview" : "template-preview-form-list-details-blurred"}>
+								{(publicWebsite) ? <></> : <h1>COMING SOON</h1>}
 							</div>
 						</div>
 					</div>
@@ -37,7 +37,7 @@ export function ChooseTemplateSection({setTemplate, setTemplateChosen, staticPag
 					<h2>Template 2</h2>
 					<div className="row">
 						<div className="template-box">
-							<div className={(staticPage) ? "template-preview-blurred" : "template-preview-form-list-details-blurred"}>
+							<div className={(publicWebsite) ? "template-preview-blurred" : "template-preview-form-list-details-blurred"}>
 								<h1>COMING SOON</h1>
 							</div>
 						</div>
@@ -49,7 +49,7 @@ export function ChooseTemplateSection({setTemplate, setTemplateChosen, staticPag
 					<h2>Template 3</h2>
 					<div className="row">
 						<div className="template-box">
-							<div className={(staticPage) ? "template-preview-blurred" : "template-preview-form-list-details-blurred"}>
+							<div className={(publicWebsite) ? "template-preview-blurred" : "template-preview-form-list-details-blurred"}>
 								<h1>COMING SOON</h1>
 							</div>
 						</div>

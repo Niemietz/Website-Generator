@@ -1,4 +1,4 @@
-import FieldRow from './FieldRow';
+import FieldRow from './publicWebsite/FieldRow.jsx';
 
 export default function EntityCard({entity, index, actions}) {
 	const entityFieldName = `entity_${index}`

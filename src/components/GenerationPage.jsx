@@ -1,18 +1,21 @@
 import {useEffect, useRef, useState} from "react";
 import { API_BASE_URL } from "./../config.js";
 import { collectSpec } from "./../utils/spec.js";
-import {ProjectSection} from "./ProjectSection.jsx";
-import {NavigationSection} from "./NavigationSection.jsx";
-import {ColorPaletteSection} from "./ColorPaletteSection.jsx";
-import {BannerSection} from "./BannerSection.jsx";
-import {MainContentSection} from "./MainContentSection.jsx";
-import {FooterSection} from "./FooterSection.jsx";
+import {ProjectSection} from "./publicWebsite/ProjectSection.jsx";
+import {NavigationSection} from "./publicWebsite/NavigationSection.jsx";
+import {ColorPaletteSection} from "./publicWebsite/ColorPaletteSection.jsx";
+import {BannerSection} from "./publicWebsite/BannerSection.jsx";
+import {MainContentSection} from "./publicWebsite/MainContentSection.jsx";
+import {FooterSection} from "./publicWebsite/FooterSection.jsx";
 import {EntitiesSection} from "./EntitiesSection.jsx";
+import {PaymentServiceSection} from "./publicWebsite/PaymentServiceSection.jsx";
+import {LoginSection} from "./publicWebsite/LoginSection.jsx";
+import {FeaturesSection} from "./publicWebsite/FeaturesSection.jsx";
 
 const delay = (ms) =>
 	new Promise((resolve) => setTimeout(resolve, ms));
 
-export function Template1Section({state, actions}) {
+export function GenerationPage({state, actions}) {
 	const mainRef = useRef();
 	const [loaded, setLoaded] = useState(false);
 	const [busy, setBusy] = useState(false);
@@ -66,7 +69,7 @@ export function Template1Section({state, actions}) {
 	}
 
 	const handleGenerate = async () => {
-		if (state.staticPage === false) {
+		if (state.publicWebsite === false) {
 			setStatusMsg({...statusMsg, text: 'Not available yet! This is a WIP 🚧', kind: "error" });
 			return
 		}
@@ -134,35 +137,55 @@ export function Template1Section({state, actions}) {
 				<section>
 					<ProjectSection state={state} actions={actions}/>
 
+					<FeaturesSection state={state} actions={actions}/>
+
+					{state.publicWebsite === true && (
+						<>
+						<PaymentServiceSection state={state} actions={actions}/>
+
+						<LoginSection state={state} actions={actions}/>
+						</>
+					)}
+
 					<NavigationSection state={state} actions={actions}/>
+
+					{(state.publicWebsite === false || state.includeLogin === true) && (
+						<EntitiesSection state={state} actions={actions}/>
+					)}
 
 					<ColorPaletteSection state={state} actions={actions}/>
 
 					<ColorPaletteSection state={state} actions={actions} darkMode={true}/>
 
-					<BannerSection state={state} actions={actions}/>
+					{state.publicWebsite === true && (
+						<>
+							<BannerSection state={state} actions={actions}/>
 
-					<MainContentSection state={state} actions={actions}/>
+							<MainContentSection state={state} actions={actions}/>
 
-					<FooterSection state={state} actions={actions}/>
-
-					<EntitiesSection state={state} actions={actions}/>
+							<FooterSection state={state} actions={actions}/>
+						</>
+					)}
 				</section>
 
 				<aside className="side-column">
-					<section hidden={!state.staticPage}>
-						<div className="card">
-							<h2> Preview</h2>
-							<h4>⚠️ Work in Progress 🚧</h4>
-						</div>
-					</section>
-					<section hidden={!state.staticPage}>
-						<div className="card">
-							<button className="btn btn-primary btn-large" onClick={fillContent} disabled={busy}>
-								📝 Fill with plausible content
-							</button>
-						</div>
-					</section>
+					{state.publicWebsite === true && (
+					<>
+						<section>
+							<div className="card">
+								<h2> Preview</h2>
+								<h4>⚠️ Work in Progress 🚧</h4>
+							</div>
+						</section>
+						<section>
+							<div className="card">
+								<button className="btn btn-primary btn-large" onClick={fillContent} disabled={busy}>
+									📝 Fill with plausible content
+								</button>
+							</div>
+						</section>
+					</>
+					)}
 					<section>
 						<div className="card">
 							<button className="btn btn-primary btn-large" id="generateBtn" onClick={handleGenerate}

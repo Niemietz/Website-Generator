@@ -1,6 +1,6 @@
 export function BannerSection({state, actions}) {
 	return (
-		<div className="card" hidden={!state.staticPage}>
+		<div className="card">
 			<h2>Banner</h2>
 			<div className="row space-between">
 				<label className="field">

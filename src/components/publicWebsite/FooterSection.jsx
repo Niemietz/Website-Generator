@@ -1,9 +1,9 @@
-import EntityCard from "./EntityCard.jsx";
+import EntityCard from "../EntityCard.jsx";
 import FooterBottomCard from "./FooterBottomCard.jsx";
 
 export function FooterSection({state, actions}) {
 	return (
-		<div className="card" hidden={!state.staticPage}>
+		<div className="card">
 			<div className="row space-between">
 				<h2>Footer</h2>
 			</div>
@@ -15,7 +15,7 @@ export function FooterSection({state, actions}) {
 						className="entity-name"
 						type="text"
 						value={state.content.footer.title}
-						onChange={(e) => actions.setFooter("text", e.target.value)}
+						onChange={(e) => actions.setFooter("title", e.target.value)}
 					/>
 				</label>
 				<label className="field">

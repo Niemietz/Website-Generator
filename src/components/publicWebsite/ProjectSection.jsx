@@ -1,0 +1,31 @@
+export function ProjectSection({state, actions}) {
+	return (
+		<div className="card">
+			<h2>Project</h2>
+			<div className="row">
+				<label className="field">
+					<span>Project name (used as folder / package name)</span>
+					<input id="projectName"
+						   type="text"
+						   value={state.projectName}
+						   onChange={(e) => actions.setProp("projectName", e.target.value)}/>
+				</label>
+				<label className="field">
+					<span>Backend port</span>
+					<input id="port"
+						   type="number"
+						   value={state.port}
+						   onChange={(e) => actions.setProp("port", e.target.valueAsNumber)}/>
+				</label>
+			</div>
+			<div className="row">
+				<label className="field">
+					<span>Description (Work in Progress 🚧)</span>
+					<input id="description" type="text" placeholder="Optional short description"
+						   value={state.description} disabled
+						   onChange={(e) => actions.setProp("description", e.target.value)}/>
+				</label>
+			</div>
+		</div>
+	)
+}

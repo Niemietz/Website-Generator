@@ -17,6 +17,10 @@ body {
     color: var(--text);
 }
 
+.icon {
+    width: 1rem
+}
+
 .topbar {
     background: white;
     border-bottom: 1px solid var(--border);

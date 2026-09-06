@@ -1,6 +1,6 @@
 export function MainContentSection({state, actions}) {
 	return (
-		<div className="card" hidden={!state.staticPage}>
+		<div className="card">
 			<h2>Main Content</h2>
 			<div className="row">
 				<label className="field">

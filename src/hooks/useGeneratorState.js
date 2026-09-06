@@ -6,6 +6,7 @@ String.prototype.capitalize = function() {
 
 let idCounter = 0;
 let idNavigationCounter = 0;
+let idUserCounter = 0;
 let idBottomCardCounter = 0;
 
 function nextId(prefix) {
@@ -16,6 +17,11 @@ function nextId(prefix) {
 function nextIdForNavigation(prefix) {
 	idNavigationCounter += 1;
 	return `${prefix}-${idNavigationCounter}`;
+}
+
+function nextIdForUser(prefix) {
+	idUserCounter += 1;
+	return `${prefix}-${idUserCounter}`;
 }
 
 function nextIdForBottomCard(prefix) {
@@ -33,6 +39,14 @@ function makeEntity(name) {
 		name,
 		//screens: {list: true, detail: true, form: true},
 		fields: [makeField('name', 'String'), makeField('customFlag', 'Boolean')],
+	};
+}
+
+function makeUser(name = '', password = '') {
+	return {
+		id: nextIdForUser('user'),
+		name,
+		password,
 	};
 }
 
@@ -67,12 +81,12 @@ function makeNavigation(name = '', isAnchor = false, isCta = false, ctaText = nu
 	};
 }
 
-const initialState = (initialStaticPage) => ({
+const initialState = (initialPublicWebsite) => ({
 	projectName: "MyApp",
 	description: "",
 	port: 5000,
 	auth: false,
-	staticPage: initialStaticPage,
+	publicWebsite: initialPublicWebsite,
 	contact: true,
 	content: {
 		logo: "",
@@ -117,6 +131,19 @@ const initialState = (initialStaticPage) => ({
 		},
 		notFoundMessage: "",
 	},
+	includeLogin: false,
+	includeAdmin: false,
+	includePaymentService: false,
+	includeMercadoPago: true,
+	includePagBank: false,
+	includeSqlConnect: false,
+	includeMongoDB: true,
+	includeNotifications: false,
+	includeGoogleMaps: false,
+	includeAzureMaps: false,
+	login: {
+		users: []
+	},
 	navigation: [makeNavigation("About", false, false, null)],
 	/*project: {
 		appName: 'MyApp',
@@ -153,6 +180,14 @@ function useEntityCounter() {
 	};
 }
 
+function useUserCounter() {
+	const ref = useRef(1);
+	return () => {
+		ref.current += 1;
+		return ref.current;
+	};
+}
+
 function useNavigationCounter() {
 	const ref = useRef(1);
 	return () => {
@@ -169,9 +204,10 @@ function useBottomCardCounter() {
 	};
 }
 
-export default function useGeneratorState(initialStaticPage) {
-	const [state, setState] = useState(initialState(initialStaticPage));
+export default function useGeneratorState(initialPublicWebsite) {
+	const [state, setState] = useState(initialState(initialPublicWebsite));
 	const nextEntityNumber = useEntityCounter();
+	const nextUserNumber = useUserCounter();
 	const nextNavigationNumber = useNavigationCounter();
 	const nextBottomCardNumber = useBottomCardCounter();
 
@@ -260,6 +296,16 @@ export default function useGeneratorState(initialStaticPage) {
 	const updateNavigation = (id, patch) =>
 		setState((s) => ({...s, navigation: s.navigation.map((e) => (e.id === id ? {...e, ...patch} : e))}));
 
+	// --- Users -----------------------------------------------------------
+	const addUser = (name = '', password = '') =>
+		setState((s) => ({...s, login: {...s.login, users: [...s.login.users, makeUser(name || `User${nextUserNumber()}`, password || `123456`)]}}));
+
+	const removeUser = (id) =>
+		setState((s) => ({...s, login: {...s.login, users: s.login.users.filter((e) => e.id !== id)}}));
+
+	const updateUser = (id, patch) =>
+		setState((s) => ({...s, login: {...s.login, users: [...s.login.users, s.login.users.map((e) => (e.id === id ? {...e, ...patch} : e))]}}));
+
 	// --- Footer Bottom Card -----------------------------------------------------------
 	const addBottomCard = (title = '', description = '') =>
 		setState((s) => ({...s, content: {...s.content, footer: {...s.content.footer, bottomCards: [...s.content.footer.bottomCards, makeBottomCard(title || `BottomCard${nextBottomCardNumber()}`, description || ``)]}}}));
@@ -296,12 +342,15 @@ export default function useGeneratorState(initialStaticPage) {
 			setAzureMapsApiKey,
 			setIncludeFirebase,
 			addEntity,
+			addUser,
 			addBottomCard,
 			addNavigation,
 			removeEntity,
+			removeUser,
 			removeBottomCard,
 			removeNavigation,
 			updateEntity,
+			updateUser,
 			updateBottomCard,
 			updateNavigation,
 			updateEntityScreens,

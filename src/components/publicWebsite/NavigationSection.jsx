@@ -2,7 +2,7 @@ import NavigationCard from "./NavigationCard.jsx";
 
 export function NavigationSection({state, actions}) {
 	return (
-		<div className="card" hidden={!state.staticPage}>
+		<div className="card" hidden={!state.publicWebsite}>
 			<div className="row space-between">
 				<h2>Navigation</h2>
 				<button className="btn btn-primary"

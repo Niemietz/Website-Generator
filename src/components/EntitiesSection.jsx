@@ -2,7 +2,7 @@ import EntityCard from "./EntityCard.jsx";
 
 export function EntitiesSection({state, actions}) {
 	return (
-		<div className="card" hidden={state.staticPage}>
+		<div className="card">
 			<div className="row space-between">
 				<h2>Entities</h2>
 				<button className="btn btn-primary"
