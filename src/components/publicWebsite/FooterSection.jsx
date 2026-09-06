@@ -41,7 +41,7 @@ export function FooterSection({state, actions}) {
 			</div>
 			<div className="row">
 				<label className="field">
-					<span>Card 1 Title</span>
+					<span>Card Title</span>
 					<input
 						name="footerCard1Title"
 						className="entity-name"
@@ -53,7 +53,7 @@ export function FooterSection({state, actions}) {
 			</div>
 			<div className="row">
 				<label className="field">
-					<span>Card 2 Title</span>
+					<span>Card Subtitle 1</span>
 					<input
 						name="footerCard2Title"
 						className="entity-name"
@@ -63,7 +63,7 @@ export function FooterSection({state, actions}) {
 					/>
 				</label>
 				<label className="field">
-					<span>Card 2 Value</span>
+					<span>Card Value 1</span>
 					<input
 						name="footerCard2Value"
 						className="entity-name"
@@ -75,7 +75,7 @@ export function FooterSection({state, actions}) {
 			</div>
 			<div className="row">
 				<label className="field">
-					<span>Card 3 Title</span>
+					<span>Card Subtitle 2</span>
 					<input
 						name="footerCard3Title"
 						className="entity-name"
@@ -85,7 +85,7 @@ export function FooterSection({state, actions}) {
 					/>
 				</label>
 				<label className="field">
-					<span>Card 3 Value</span>
+					<span>Card Value 2</span>
 					<input
 						name="footerCard3Value"
 						className="entity-name"
@@ -97,7 +97,7 @@ export function FooterSection({state, actions}) {
 			</div>
 			<div className="row">
 				<label className="field">
-					<span>Right Corner 1 Title</span>
+					<span>Right Corner Subtitle 1</span>
 					<input
 						name="footerRightCorner1Title"
 						className="entity-name"
@@ -107,7 +107,7 @@ export function FooterSection({state, actions}) {
 					/>
 				</label>
 				<label className="field">
-					<span>Right Corner 1 Value</span>
+					<span>Right Corner Value 1</span>
 					<input
 						name="footerRightCorner1Value"
 						className="entity-name"
@@ -119,7 +119,7 @@ export function FooterSection({state, actions}) {
 			</div>
 			<div className="row">
 				<label className="field">
-					<span>Right Corner 2 Title</span>
+					<span>Right Corner Subtitle 2</span>
 					<input
 						name="footerRightCorner2Title"
 						className="entity-name"
@@ -129,7 +129,7 @@ export function FooterSection({state, actions}) {
 					/>
 				</label>
 				<label className="field">
-					<span>Right Corner 2 Value</span>
+					<span>Right Corner Value 2</span>
 					<input
 						name="footerRightCorner2Value"
 						className="entity-name"

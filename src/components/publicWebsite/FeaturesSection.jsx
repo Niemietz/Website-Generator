@@ -29,6 +29,22 @@ export function FeaturesSection({state, actions}) {
 					</div>
 				</fieldset>
 				}
+				{ state.publicWebsite === true &&
+				<label className="checkbox-field">
+					<i className="ci ci-whatsapp"></i>
+					<input id="includeWhatsAppChat"
+						   type="checkbox"
+						   disabled={true}
+						   checked={state.includeWhatsAppChat}
+						   onChange={(e) => {
+							   actions.setProp("includeWhatsAppChat", e.target.checked)
+							   if (e.target.checked === true && state.includeLogin === false) {
+								   actions.setProp("includeLogin", true)
+							   }
+						   }}/>
+					<span>Include WhatsApp Chat</span>
+				</label>
+				}
 				<label className="checkbox-field">
 					<span className="material-symbols-outlined">notifications</span>
 					<input id="includeNotifications"

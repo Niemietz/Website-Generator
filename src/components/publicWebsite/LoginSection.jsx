@@ -30,11 +30,13 @@ export function LoginSection({state, actions}) {
 							<input id="includeAdmin"
 								type="checkbox"
 								disabled={state.includePaymentService === true ||
+									state.includeWhatsAppChat === true ||
 									state.includeNotifications === true ||
 									state.includeGoogleMaps === true ||
 									state.includeAzureMaps === true}
 								checked={state.includeAdmin === true ||
 									state.includePaymentService === true ||
+									state.includeWhatsAppChat === true ||
 									state.includeNotifications === true ||
 									state.includeGoogleMaps === true ||
 									state.includeAzureMaps === true}

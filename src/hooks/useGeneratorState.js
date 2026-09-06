@@ -136,6 +136,8 @@ const initialState = (initialPublicWebsite) => ({
 	includePaymentService: false,
 	includeMercadoPago: true,
 	includePagBank: false,
+	includeWhatsAppChat: false,
+	includeContactPage: false,
 	includeSqlConnect: false,
 	includeMongoDB: true,
 	includeNotifications: false,
@@ -144,7 +146,7 @@ const initialState = (initialPublicWebsite) => ({
 	login: {
 		users: []
 	},
-	navigation: [makeNavigation("About", false, false, null)],
+	navigation: [makeNavigation("About Us", false, false, null)],
 	/*project: {
 		appName: 'MyApp',
 		includeLogin: false,

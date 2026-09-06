@@ -12,7 +12,7 @@ export default function NavigationCard({navigation, index, actions}) {
 		<div className="entity">
 			<div className="row space-between">
 				<label className="field grow">
-					<span>Navigation name (e.g. Contact, About)</span>
+					<span>Navigation name (e.g. About Us)</span>
 					<input
 						name={navigationFieldName}
 						className="entity-name"
@@ -47,7 +47,7 @@ export default function NavigationCard({navigation, index, actions}) {
 					<span>Show as button in header</span>
 				</label>
 				<label className="field" hidden={!navigation.isCta}>
-					<span hidden={!navigation.isCta}>CTA text (e.g. Contact, About)</span>
+					<span hidden={!navigation.isCta}>CTA text (e.g. About Us)</span>
 					<input
 					 	hidden={!navigation.isCta}
 						name={navigationCtaTextName}
@@ -71,7 +71,7 @@ export default function NavigationCard({navigation, index, actions}) {
 								}
 							)}
 						}/>
-					<span>Section on an existing page, not an independent page (Anchor)</span>
+					<span>Section on the current page, not an independent page (⚓ Anchor)</span>
 				</label>
 				<button className="btn btn-danger remove-entity"
 					onClick={() => actions.removeNavigation(navigation.id)}>Remove</button>
